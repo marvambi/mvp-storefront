@@ -36,7 +36,7 @@ export default function Index() {
         </div>
 
         <div className="mx-auto mt-16 max-w-7xl text-center flex-row">
-          <Link to="/store" className="text-xl text-blue-600 underline">MVPStore</Link>
+          <Link to="/store" className="text-xl text-blue-600 underline">MVP Store</Link>
           <Link to="/login" className="text-xl text-blue-600 underline mx-10">Login</Link>
         </div>
 

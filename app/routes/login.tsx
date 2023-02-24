@@ -1,7 +1,56 @@
 // app/routes/login.tsx
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { FormField } from '~/components/form-field';
-import { Layout } from '~/components/layout'
+import { Layout } from '~/components/layout';
+import type { ActionFunction } from '@remix-run/node';
+import { json } from '@remix-run/node'
+import { validateEmail, validateUserName, validatePassword, validateRole } from '~/utils/validators.server';
+import { login, register } from '~/utils/auth.server';
+
+export const action: ActionFunction = async ({ request }) => {
+  const form = await request.formData()
+  const action = form.get('_action')
+  const email = form.get('email')
+  const password = form.get('password')
+  let username = form.get('username')
+  let role = form.get('role')
+
+  if (typeof action !== 'string' || typeof email !== 'string' || typeof password !== 'string') {
+    return json({ error: `Invalid Form Data`, form: action }, { status: 400 })
+  }
+
+  if (action === 'register' && (typeof username !== 'string' || typeof username !== 'string')) {
+    return json({ error: `Invalid Form Data`, form: action }, { status: 400 })
+  }
+
+  const errors = {
+    email: validateEmail(email),
+    password: validatePassword(password),
+    ...(action === 'register'
+      ? {
+        username: validateUserName((username as string) || ''),
+        role: validateRole((role as string) || ''),
+      }
+      : {}),
+  }
+
+  if (Object.values(errors).some(Boolean)) {
+    return json({ errors, fields: { email, password, username, role }, form: action }, { status: 400 });
+  }
+  switch (action) {
+    case 'login': {
+      return await login({ email, password })
+    }
+    case 'register': {
+      username = username as string
+      role = role as string
+      return await register({ email, password, username, role })
+    }
+    default:
+      return json({ error: `Invalid Form Data` }, { status: 400 });
+  }
+}
+
 export default function Login() {
   const [action, setAction] = useState('login');
   const [role, setRole] = useState<String>('');
@@ -30,7 +79,7 @@ export default function Login() {
     return console.log("New state: ", formData);
   }, [formData]);
 
-  const actions = () => {
+  const enableActions = () => {
     let decision = false;
     if (action === 'login') {
       decision = (formData.email == "" || formData.password == "") ? true : false;
@@ -40,7 +89,7 @@ export default function Login() {
     }
     return decision;
   };
-  const determine = actions();
+  const determine = enableActions();
 
   return (
     <Layout>
