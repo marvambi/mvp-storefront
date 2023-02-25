@@ -24,13 +24,13 @@ export default function Index() {
               <div className="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center">
                 <div>&nbsp;</div>
               </div>
-              <a href="javascript::">
+              <div className="bg-contain">
                 <img
-                  src="https://user-images.githubusercontent.com/1500684/158298926-e45dafff-3544-4b69-96d6-d3bcc33fc76a.svg"
-                  alt="Remix"
+                  src="https://www.presenti.ng/images/presenti_thumbnail.png"
+                  alt="Presenti.NG"
                   className="mx-auto mt-16 w-full max-w-[12rem] md:max-w-[16rem] drop-shadow-md"
                 />
-              </a>
+              </div>
             </div>
           </div>
         </div>
