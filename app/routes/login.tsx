@@ -39,7 +39,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
   switch (action) {
     case 'login': {
-      return await login({ email, password })
+      return login({ email, password })
     }
     case 'register': {
       username = username as string
@@ -53,7 +53,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Login() {
   const [action, setAction] = useState('login');
-  const [role, setRole] = useState<String>('');
+  const [role, setRole] = useState<string>('');
   const [formData, setFormData] = useState({
     email: '',
     password: '',

@@ -1,6 +1,8 @@
 // app/utils/auth.server.ts
 import type { RegisterForm, LoginForm } from './types.server';
-import { redirect, json, createCookieSessionStorage } from '@remix-run/node';
+import { redirect, json, createCookieSessionStorage, fetch } from '@remix-run/node';
+import axios from 'axios';
+import { API_URL } from '~/lib/config';
 
 const sessionSecret = process.env.SESSION_SECRET
 if (!sessionSecret) {
@@ -26,16 +28,18 @@ export async function register(user: RegisterForm) {
   }
 }
 
-export async function login({ email, password }: LoginForm) {
+export async function login(form: LoginForm) {
   // 2
-  const user = ({ email, id: 2 })
-
-  // 3
-  if (!user)
-    return json({ error: `Incorrect login` }, { status: 400 })
+  console.log("Trying is...")
+  const user = await fetch(`${API_URL}/users/login`, { method: "post", body: JSON.stringify({ email: 'marvin@marvin.com', password: 'MarvinAmbrose' }) },);
 
   // 4
-  return { id: user.id, email }
+  let me = user.json();
+  return me.then((response) => {
+    console.log("Returned: ", response);
+    return response;
+  })
+
 }
 
 export async function createUserSession(userId: string, redirectTo: string) {
