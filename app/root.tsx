@@ -7,6 +7,10 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import Navbar from "./components/Navbar";
+import Tabbar from "./components/Tabbar";
+import useNavigation from "~/hooks/useNavigation";
+import navigationData from "~/lib/navigation";
 import styles from "./styles/app.css"
 
 export const links: LinksFunction = () => {
@@ -20,6 +24,7 @@ export const meta: MetaFunction = () => ({
 });
 
 export default function App() {
+  const { currentRoute, setCurrentRoute } = useNavigation();
   return (
     <html lang="en">
       <head>
@@ -27,6 +32,14 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <Navbar
+          navigationData={navigationData}
+          currentRoute={currentRoute}
+          setCurrentRoute={setCurrentRoute} />
+        <Tabbar
+          navigationData={navigationData}
+          currentRoute={currentRoute}
+          setCurrentRoute={setCurrentRoute} />
         <Outlet />
         <ScrollRestoration />
         <Scripts />

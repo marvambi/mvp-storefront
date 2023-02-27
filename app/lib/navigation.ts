@@ -1,0 +1,1 @@
+export default ["Home", "Store", "Inbox", "Profile"];

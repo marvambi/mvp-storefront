@@ -93,14 +93,9 @@ export default function Login() {
 
   return (
     <Layout>
-      <div className="h-full justify-center items-center flex flex-col gap-y-4">
-        <button
-          onClick={() => setAction(action == 'login' ? 'register' : 'login')}
-          className="absolute top-8 right-8 rounded-xl bg-yellow-300 font-semibold text-blue-600 px-3 py-2 transition duration-300 ease-in-out hover:bg-yellow-400 hover:-translate-y-1"
-        >
-          {action === 'login' ? 'Sign Up' : 'Sign In'}
-        </button>
-        <h2 className="text-5xl font-extrabold text-yellow-300">Vender...</h2>
+      <div className="justify-center items-center flex flex-col gap-y-4">
+
+        <h2 className="text-3xl font-extrabold rounded-md bg-slate-300 text-white mt-2">...</h2>
         <p className="font-semibold text-slate-300">
           {action === 'login' ? 'Log In To Buy/Sell Some Gizmos!' : 'Sign Up To Get Started!'}
         </p>
@@ -137,7 +132,7 @@ export default function Login() {
                   e.target.value !== "" && handleSelectChange(e)
                 }}
               >
-                <option className="text-blue-600 font-semibold mt-5" value="">Select a role</option>
+                <option className="text-blue-600 font-semibold mt-5" value="">Select a role 👇🏽</option>
                 <option className="text-blue-600 font-semibold mt-5" key={'seller'} value={'seller'}>
                   {'Seller'}
                 </option>
@@ -155,7 +150,16 @@ export default function Login() {
               }
             </button>
           </div>
+
         </form>
+        <div className='absolute bottom-20'>
+          <button
+            onClick={() => setAction(action == 'login' ? 'register' : 'login')}
+            className="rounded-xl bg-yellow-300 font-semibold text-blue-600 px-3 py-2 transition duration-300 ease-in-out hover:bg-yellow-400 hover:-translate-y-1"
+          >
+            {action === 'login' ? 'Sign Up' : 'Sign In'}
+          </button>
+        </div>
       </div>
     </Layout>
   )

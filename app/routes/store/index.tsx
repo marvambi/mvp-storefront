@@ -1,6 +1,5 @@
 // ./app/routes/store/index.tsx
 import { ArrowIcon, GitHubIcon, TwitterIcon, YoutubeIcon } from '~/components/icons';
-import { API_URL } from '~/lib/config';
 import {
   Card,
   CardHeader,
@@ -10,7 +9,7 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 
-console.log(`The API URL is ${API_URL}`);
+const storeImg = "../assets/house.png";
 export default function Index() {
 
   return (
@@ -21,7 +20,7 @@ export default function Index() {
           <Card key={it} className="w-60 mx-2">
             <CardHeader color="white" className="h-36 justify-center items-center">
               <img
-                src="https://m.media-amazon.com/images/I/91QOsoaw2rL._AC_SX679_.jpg"
+                src={storeImg}
                 alt="img-blur-shadow"
                 className="h-full w-auto mx-auto mt-2"
               />
